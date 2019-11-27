@@ -20,6 +20,7 @@ Discord bot to manage guild functions for WoW classic.
 * You'll have to create a google calendar and share it with the google service account (allow it to manage events) so the bot can add & display events.
 
 ## ToDo
+- [ ] work on cleanup command and enable
 - [ ] edit/delete events
 - [ ] better feedback/functions for posting RSVPs (so all reactions go to one post)
 - [ ] Retrieve attendance status for an event
