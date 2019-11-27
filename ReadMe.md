@@ -25,18 +25,18 @@ Discord bot to manage guild functions for WoW classic.
 [Use !help <commandname> for details]
 ​
 == SYSTEM ==
-!help      :: Displays all the available commands for your permission level.
+* !help       Displays all the available commands for your permission level.
 ​
 == CALENDAR ==
-!addevent  :: Add event to channel calendar.
-!invite    :: Share link to discord post for event RSVP
-!rsvp      :: Post and invitation to an event for RSVPs.
-!setup     :: Configure channel calendars.
-!upcoming  :: Post upcoming events.
+* !addevent   Add event to channel calendar.
+* !invite     Share link to discord post for event RSVP
+* !rsvp       Post and invitation to an event for RSVPs.
+* !setup      Configure channel calendars.
+* !upcoming   Post upcoming events.
 ​
 == GUILD ==
-!admin     :: Configure guild bot permissions and settings
-!cleanup   :: Cleanup bot messages
+* !admin      Configure guild bot permissions and settings
+* !cleanup    Cleanup bot messages
 
 ### Add Events
 = addevent = 
