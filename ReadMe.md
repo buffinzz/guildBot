@@ -20,21 +20,21 @@ Discord bot to manage guild functions for WoW classic.
 * You'll have to create a google calendar and share it with the google service account (allow it to manage events) so the bot can add & display events.
 
 ## Command List
-Use !help <commandname> for details
+Use `!help <commandname>` for details
 ​
 #### SYSTEM
-* !help       Displays all the available commands for your permission level.
+* `!help`       Displays all the available commands for your permission level.
 ​
 #### CALENDAR
-* !addevent   Add event to channel calendar.
-* !invite     Share link to discord post for event RSVP
-* !rsvp       Post and invitation to an event for RSVPs.
-* !setup      Configure channel calendars.
-* !upcoming   Post upcoming events.
+* `!addevent`   Add event to channel calendar.
+* `!invite`    Share link to discord post for event RSVP
+* `!rsvp`       Post and invitation to an event for RSVPs.
+* `!setup`      Configure channel calendars.
+* `!upcoming`   Post upcoming events.
 ​
 #### GUILD
-* !admin      Configure guild bot permissions and settings
-* !cleanup    Cleanup bot messages
+* `!admin`      Configure guild bot permissions and settings
+* `!cleanup`    Cleanup bot messages
 
 ### Add Events
 = addevent = 
@@ -42,13 +42,13 @@ Add event to channel calendar.
 
 !addevent [YYYY/MM/DD] [STARTIME]-[ENDTIME] (end optional) [TITLE] ::: [DESCRIPTION](optional) [#CHANNEL](optional)
 
-!addEvent 2019/11/22 7:30pm-10:30pm Molten Core ::: Invites start at 7pm
+`!addEvent 2019/11/22 7:30pm-10:30pm Molten Core ::: Invites start at 7pm`
 
-!addEvent 2019-12-31 5:00pm Onyxia's Lair ::: More Dots! #calendar
+`!addEvent 2019-12-31 5:00pm Onyxia's Lair ::: More Dots! #calendar`
 
-!addEvent 2020-01-15 6:00pm-7:00pm Scholomance ::: #lfg
+`!addEvent 2020-01-15 6:00pm-7:00pm Scholomance ::: #lfg`
 
-!addEvent 2020-01-25 6:00pm UBRS
+`!addEvent 2020-01-25 6:00pm UBRS`
 
 = addevent =
 
