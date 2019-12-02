@@ -8,7 +8,8 @@ module.exports = async (client, reaction, user) => {
     if(user.tag ===client.user.tag ){
         return;
     }
-    let rsvp = await db.get().collection('rsvp').findOne({mId:reaction.message.id});
+    let url = 'https://discordapp.com/channels/'+ reaction.message.guild.id +"/" + reaction.message.channel.id+"/"+reaction.message.id;
+    let rsvp = await db.get().collection('rsvp').findOne({link:url});
     if(!rsvp){
         console.log('rsvp not found')
         return;
@@ -20,24 +21,21 @@ module.exports = async (client, reaction, user) => {
     
     switch(reaction.emoji.name){
         case '👍':
-            db.get().collection('rsvp').updateOne({mId:reaction.message.id},{$addToSet: {confirmed: member.nickname}},
+            db.get().collection('rsvp').updateOne({_id: rsvp._id},{$addToSet: {confirmed: member.nickname}},
                 function(err, r) {
                   if (err) console.log('Confirmation add DB ERROR', err);
-                  //message.reply(`Roles ${arg[1]} added to calendar managers.`);
                   return;
                 }); break;
         case '👎':
-            db.get().collection('rsvp').updateOne({mId:reaction.message.id},{$addToSet: {declined: member.nickname}},
+            db.get().collection('rsvp').updateOne({_id: rsvp._id},{$addToSet: {declined: member.nickname}},
                 function(err, r) {
                     if (err) console.log('Decline add DB ERROR', err);
-                    //message.reply(`Roles ${arg[1]} added to calendar managers.`);
                     return;
                 }); break;
         case '🤔':
-            db.get().collection('rsvp').updateOne({mId:reaction.message.id},{$addToSet: {tentative: member.nickname}},
+            db.get().collection('rsvp').updateOne({_id: rsvp._id},{$addToSet: {tentative: member.nickname}},
                 function(err, r) {
                     if (err) console.log('Tentative add DB ERROR', err);
-                    //message.reply(`Roles ${arg[1]} added to calendar managers.`);
                     return;
                 }); break;
     }

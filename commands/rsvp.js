@@ -66,12 +66,12 @@ exports.run = async ( client, message, args, channel, calendarSettings, calendar
                 .then(()=>sent.react('👎'))
                 .then(()=>sent.react('🤔'))
                 .then(()=> {
-                  let newEvent = event;
-                  newEvent.source.url = 'https://discordapp.com/channels/'+ seent.guild.id +"/" + sent.channel.id+"/"+sent.id;
-                  calendar.events.update({calendarId:calendarSettings.calId,eventId: event.id, requestBody:newEvent}).then(resp =>{
-                    console.log("UPDATED EVENt", resp);
-                  })
-                  db.get().collection('rsvp').updateOne({gId: message.guild.id, cId: channel.id, eId: event.location},{$set: {mId: sent.id, link: newEvent.source.url, date: date, name: event.summary}}, {
+                  //let newEvent = event;
+                  let url = 'https://discordapp.com/channels/'+ sent.guild.id +"/" + sent.channel.id+"/"+sent.id;
+                  // calendar.events.update({calendarId:calendarSettings.calId,eventId: event.id, requestBody:newEvent}).then(resp =>{
+                  //   console.log("UPDATED EVENt", resp);
+                  // })
+                  db.get().collection('rsvp').updateOne({gId: message.guild.id, cId: channel.id, eId: event.location},{$set: {link: url, date: date, name: event.summary}}, {
                     upsert: true
                   }, function(err, response){
                     if(err) throw err; 
