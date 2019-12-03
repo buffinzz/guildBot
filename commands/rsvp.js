@@ -51,9 +51,10 @@ exports.run = async ( client, message, args, channel, calendarSettings, calendar
     }
 
     const event = check.data.items[0];
+    console.log(event);
     //console.log("EVENT START", event.start);
     let date = event.start.dateTime ? moment(event.start.dateTime).format("MMM Do YYYY - h:mma") : moment(event.start.date).format("MMM Do YYYY") + ' - all day';
-    let author = "\#" + channel.name + ' Calendar - ';
+    let author = "\#" + channel.name + ' - ';
     msg.setColor('#663399')
       .setTitle(event.summary)
       .setURL(event.htmlLink)
@@ -71,7 +72,7 @@ exports.run = async ( client, message, args, channel, calendarSettings, calendar
                   // calendar.events.update({calendarId:calendarSettings.calId,eventId: event.id, requestBody:newEvent}).then(resp =>{
                   //   console.log("UPDATED EVENt", resp);
                   // })
-                  db.get().collection('rsvp').updateOne({gId: message.guild.id, cId: channel.id, eId: event.location},{$set: {link: url, date: date, name: event.summary}}, {
+                  db.get().collection('rsvp').updateOne({gId: message.guild.id, cId: channel.id, eId: event.location},{$set: {link: url, date: date, name: event.summary, confirmed: [], declined: [], tentative: []}}, {
                     upsert: true
                   }, function(err, response){
                     if(err) throw err; 
