@@ -27,7 +27,9 @@ exports.run = (client, message, args, settings) => {
           output += `\u200b\n== ${cat} ==\n`;
           currentCategory = cat;
         }
+        if(c.conf.enabled != false){
         output += `${settings.prefix}${c.help.name}${" ".repeat(longest - c.help.name.length)} :: ${c.help.description}\n`;
+        }
       });
       message.channel.send(output, {code: "asciidoc", split: { char: "\u200b" }});
     } else {
@@ -36,8 +38,10 @@ exports.run = (client, message, args, settings) => {
       if (client.commands.has(command)) {
         command = client.commands.get(command);
         //if (level < client.levelCache[command.conf.permLevel]) return;
+        if(command.conf.enabled != false){
         message.channel.send(`= ${command.help.name} = \n${command.help.description}\n__**Usage:**__\n\n\`${settings.prefix}${command.help.usage.join(`\n\n${settings.prefix}`)}\`\n= ${command.help.name} =`);//, {code:"asciidoc"});
         //\naliases:: ${command.conf.aliases.join(", ")}
+        }
       }
     }
   };
