@@ -1,5 +1,9 @@
 const {google} = require('googleapis');
 const db = require('../handlers/database');
+// const auth = new google.auth.GoogleAuth({
+//   scopes: ['https://www.googleapis.com/auth/calendar'],
+// });
+// google.options({auth: auth});
 
 module.exports = async (client, message) => {
   if (message.author.bot) {
@@ -47,19 +51,20 @@ module.exports = async (client, message) => {
 //     }
 // }
   if(cmd.conf.system === 'calendar'){
+    // const auth = new google.auth.GoogleAuth({
+    //   scopes: ['https://www.googleapis.com/auth/calendar'],
+    // });
+    //google.options({auth: auth});
     let channelMentions =  message.content.match(/<#(\d+)>/);
-    console.log("MENTIONS", channelMentions);
     let channel = message.channel;
     if(channelMentions){
-      console.log("MENTIONS", channelMentions);
       channel = message.guild.channels.find(channel=>channel.id = channelMentions[1])
     }
     //let channel = message.mentions && message.mentions.channel ? message.mentions.channel.first() : message.channel;
     const auth = new google.auth.GoogleAuth({
       scopes: ['https://www.googleapis.com/auth/calendar'],
     });
-    google.options({auth: auth});
-    const calendar = google.calendar({version: 'v3'});
+    const calendar = google.calendar({version: 'v3', auth});
     const calendarSettings = await db.get().collection('calendars').findOne({_id: `${message.guild.id}${channel.id}`}, {_id:0});
     
     if(cmd.conf.permLevel === 'admin' && (!results.length && !message.member.hasPermission('MANAGE_WEBHOOKS'))){
