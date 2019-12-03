@@ -2,14 +2,23 @@ const db = require('../handlers/database');
 
 
 module.exports = async (client, reaction, user) => {
-    if(client.user.tag !== reaction.message.author.tag){
+    console.log('REMOVING');
+    let msg = reaction.message;
+   
+    if(client.user.username !== msg.author.username){
+        console.log("1")
         return;
     }
-    if(user.tag ===client.user.tag ){
+    if(user.username ===client.user.username ){
+        console.log("2")
+
         return;
     }
-    let url = 'https://discordapp.com/channels/'+ reaction.message.guild.id +"/" + reaction.message.channel.id+"/"+reaction.message.id;
+    let url = 'https://discordapp.com/channels/'+ msg.guild.id +"/" + msg.channel.id+"/"+msg.id;
+    //https://discordapp.com/channels/626826608862429187/643969832127299595/649080289729052693
+    console.log(url);
     let rsvp = await db.get().collection('rsvp').findOne({link: url});
+    console.log(rsvp);
     if(!rsvp){
         //rsvp = await db.get().collection('rsvp').findOne({link:reaction.message.id});
         console.log('rsvp not found')
@@ -17,9 +26,10 @@ module.exports = async (client, reaction, user) => {
     }
     
     
-    let member = await reactions.message.guild.members.find('username', user.username);
+    let member = msg.guild.member(user);
+    console.log(member);
 
-    
+    console.log(reaction.emoji.name);
     switch(reaction.emoji.name){
         case '👍':
             db.get().collection('rsvp').updateOne({_id: rsvp._id},{$pull: {confirmed: member.nickname}},
