@@ -80,7 +80,8 @@ if(time[0] != 'all-day'){
 event.timeZone = calendarSettings.tz;
 event.description = split.length > 1 ? split[1] : '';
 let title = split[0].split(" ")
-title=title.slice(4);
+title=title.slice(3);
+
 event.summary = title.join(" ");
 try{
     let dateCheck = event.start.date || event.start.dateTime;
