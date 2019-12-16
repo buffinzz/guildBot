@@ -53,15 +53,19 @@ exports.run = async ( client, message, args, channel, calendarSettings, calendar
     const event = check.data.items[0];
     console.log(event);
     //console.log("EVENT START", event.start);
-    let date = event.start.dateTime ? moment(event.start.dateTime).format("MMM Do YYYY - h:mma") : moment(event.start.date).format("MMM Do YYYY") + ' - all day';
+    let date = event.start.dateTime ? moment(event.start.dateTime).format("ddd, MMM Do YYYY - h:mma") : moment(event.start.date).format("MMM Do YYYY") + ' - all day';
     let author = "\#" + channel.name + ' - ';
     msg.setColor('#663399')
       .setTitle(event.summary)
       .setURL(event.htmlLink)
       .setAuthor( author.toUpperCase() + message.member.nickname, message.author.avatarURL)
       .addField('When:', date)
-      .setDescription(event.description)//.addBlankField()
-      .addField('Share RSVP link to this $calendarevent:', `!invite ${event.location} ${channel.toString()} [#CHANNEL]`);
+      .setDescription(event.description)
+      .addBlankField()
+      .addField('Share RSVP link to this $calendarevent:', `!invite ${event.location} ${channel.toString()} [#CHANNEL]`)
+      .addField('Confirm',':thumbsup: for attending',true)
+      .addField('Decline', ':thumbsdown: for not attending',true)
+      .addField('Tentative',':thinking: for maybe/unsure', true);
       responseChannel.send(msg).then((sent)=>{
         sent.react('👍')
                 .then(()=>sent.react('👎'))

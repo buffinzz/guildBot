@@ -50,7 +50,7 @@ exports.run = async ( client, message, args, channel, calendarSettings, calendar
     }
 
     check.data.items.forEach(event=>{
-        let start = event.start.dateTime ? moment(event.start.dateTime).format("MMM D, h:mma") : moment(event.start.date).format("MMM D, ") + 'all day';
+        let start = event.start.dateTime ? moment(event.start.dateTime).format("ddd, MMM D, h:mma") : moment(event.start.date).format("ddd, MMM D, ") + 'all day';
             //let date = new Date();
         msg = msg + `${start}\t ${event.location}\t${event.summary}\n`;
     });

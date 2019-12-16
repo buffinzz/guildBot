@@ -5,33 +5,6 @@ const Enmap = require("enmap");
 
 const Discord = require('discord.js');
 const client = new Discord.Client();
-
-fs.readdir('./events/', (err, files) => {
-  files.forEach(file => {
-    const eventHandler = require(`./events/${file}`)
-    const eventName = file.split('.')[0]
-    client.on(eventName, (...args) => eventHandler(client, ...args))
-    //return;
-  })
-})
-client.on('raw', packet=>{
-  if(!['MESSAGE_REACTION_ADD', 'MESSAGE_REACTION_REMOVE'].includes(packet.t)) return;
-  const channel = client.channels.get(packet.d.channel_id);
-  if(channel.messages.has(packet.d.message_id)) return;
-  channel.fetchMessage(packet.d.message_id).then( message =>{
-    const emoji = packet.d.emoji.id && packet.d.emoji.id.length ? `${packet.d.emoji.name}:${packet.d.emoji.id}` : packet.d.emoji.name;
-   
-    const reaction = message.reactions.get(emoji);
-    let u = client.users.find(user=> user.id === packet.d.user_id);
-    
-    if(packet.t === 'MESSAGE_REACTION_ADD'){
-      client.emit('messageReactionAdd', reaction, u);
-    }
-    if(packet.t === 'MESSAGE_REACTION_REMOVE'){
-      client.emit('messageReactionRemove', reaction, u);
-    }
-  })
-})
 client.commands = new Enmap();
 //Populate command map
 fs.readdir("./commands/", (err, files) => {
@@ -50,6 +23,34 @@ fs.readdir("./commands/", (err, files) => {
     client.commands.set(commandName, props);
   });
 });
+
+fs.readdir('./events/', (err, files) => {
+  files.forEach(file => {
+    const eventHandler = require(`./events/${file}`)
+    const eventName = file.split('.')[0]
+    client.on(eventName, (...args) => eventHandler(client, ...args))
+    //return;
+  })
+})
+client.on('raw', packet=>{
+  if(!['MESSAGE_REACTION_ADD', 'MESSAGE_REACTION_REMOVE'].includes(packet.t)) return;
+  const channel = client.channels.get(packet.d.channel_id);
+  if(channel.messages.has(packet.d.message_id)) return;
+  channel.fetchMessage(packet.d.message_id).then( message =>{
+    const emoji = packet.d.emoji.id && packet.d.emoji.id.length ? `${packet.d.emoji.name}:${packet.d.emoji.id}` : packet.d.emoji.name;
+   
+    const reaction = message.reactions.get(emoji);
+    let u = client.users.find(user=> user.id === packet.d.user_id);
+    console.log(packet.t)
+    if(packet.t === 'MESSAGE_REACTION_ADD'){
+      client.emit('messageReactionAdd', reaction, u);
+    }
+    if(packet.t === 'MESSAGE_REACTION_REMOVE'){
+      client.emit('messageReactionRemove', reaction, u);
+    }
+  })
+})
+
 
 
 

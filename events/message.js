@@ -45,11 +45,8 @@ module.exports = async (client, message) => {
         console.log('PERMISSIONS')
     return;
   }
-//   for (var i = 0; i < roles.length; i++) {
-//     if (settings.allowedRoles.indexOf(roles[i]) !== -1) {
-//         results.push(roles[i]);
-//     }
-// }
+
+
   if(cmd.conf.system === 'calendar'){
     // const auth = new google.auth.GoogleAuth({
     //   scopes: ['https://www.googleapis.com/auth/calendar'],
@@ -60,7 +57,6 @@ module.exports = async (client, message) => {
     if(channelMentions){
       channel = message.guild.channels.find(channel=>channel.id = channelMentions[1])
     }
-    //let channel = message.mentions && message.mentions.channel ? message.mentions.channel.first() : message.channel;
     const auth = new google.auth.GoogleAuth({
       scopes: ['https://www.googleapis.com/auth/calendar'],
     });
@@ -75,7 +71,6 @@ module.exports = async (client, message) => {
       console.log("PERMISSIONs", results)
       return;
     }
-    //const calendar = new google
     cmd.run(client, message, args, channel, calendarSettings, calendar);
     return;
   }
